@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunger Point — Shewa Adda</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#E8271A;--orange:#F97316;--yellow:#FACC15;
+  --dark:#140800;--darker:#0A0400;--card:#1C0C04;
+  --card2:#221005;--text:#FFF8EE;--muted:#C4A070;
+  --green:#25D366;--border:rgba(255,255,255,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--text);font-family:'Nunito',sans-serif;overflow-x:hidden;}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:200;background:rgba(20,8,0,0.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,39,26,0.25);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.logo-box{display:flex;align-items:center;gap:10px;}
+.logo-ico{width:40px;height:40px;border-radius:9px;background:linear-gradient(135deg,var(--red),var(--orange));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.logo-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--yellow);line-height:1;}
+.logo-sub{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
+.wa-hdr{display:flex;align-items:center;gap:6px;background:var(--green);color:#fff;font-weight:800;font-size:12px;padding:8px 14px;border-radius:50px;text-decoration:none;white-space:nowrap;box-shadow:0 0 18px rgba(37,211,102,0.35);}
+.wa-hdr svg{width:15px;height:15px;fill:#fff;flex-shrink:0;}
+
+/* NAV */
+.nav-scroll{background:rgba(20,8,0,0.92);border-bottom:1px solid var(--border);overflow-x:auto;white-space:nowrap;padding:0 12px;scrollbar-width:none;position:sticky;top:61px;z-index:190;}
+.nav-scroll::-webkit-scrollbar{display:none;}
+.nav-inner{display:inline-flex;gap:4px;padding:8px 0;}
+.ntab{display:inline-block;padding:7px 16px;border-radius:50px;font-size:12px;font-weight:700;color:var(--muted);background:transparent;border:1px solid transparent;text-decoration:none;transition:all .2s;cursor:pointer;}
+.ntab:hover,.ntab.active{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* HERO */
+.hero{min-height:90vh;background:radial-gradient(ellipse at 15% 60%,rgba(232,39,26,0.18) 0%,transparent 55%),radial-gradient(ellipse at 85% 20%,rgba(249,115,22,0.12) 0%,transparent 50%),var(--darker);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 20px 90px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 50px,rgba(232,39,26,0.025) 50px,rgba(232,39,26,0.025) 51px);pointer-events:none;}
+.estd-badge{display:inline-block;background:rgba(232,39,26,0.15);border:1px solid rgba(232,39,26,0.4);color:var(--orange);font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:5px 16px;border-radius:50px;margin-bottom:18px;animation:fadeUp .6s ease both;}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,16vw,128px);line-height:.88;color:var(--yellow);letter-spacing:2px;animation:fadeUp .7s ease both .1s;}
+.hero-h1 span{color:var(--red);}
+.hero-tagline{font-size:clamp(13px,3vw,17px);color:var(--muted);margin:16px 0 32px;max-width:380px;line-height:1.6;animation:fadeUp .7s ease both .2s;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:fadeUp .7s ease both .3s;}
+.btn-wa{display:flex;align-items:center;gap:8px;background:var(--green);color:#fff;font-weight:800;font-size:15px;padding:13px 26px;border-radius:50px;text-decoration:none;box-shadow:0 6px 28px rgba(37,211,102,0.4);}
+.btn-wa svg{width:18px;height:18px;fill:#fff;}
+.btn-outline{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);color:var(--text);font-weight:700;font-size:15px;padding:13px 26px;border-radius:50px;text-decoration:none;}
+.hero-food{font-size:34px;margin-top:48px;letter-spacing:6px;animation:fadeUp .7s ease both .4s;}
+.info-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:36px;animation:fadeUp .7s ease both .5s;}
+.info-pill{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:7px 16px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+
+/* SECTION */
+.sec{padding:56px 16px;max-width:960px;margin:0 auto;}
+.sec-head{text-align:center;margin-bottom:32px;}
+.sec-tag{display:inline-block;background:rgba(232,39,26,0.14);border:1px solid rgba(232,39,26,0.35);color:var(--red);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:9px;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,7vw,54px);color:var(--yellow);letter-spacing:1px;}
+.sec-note{font-size:13px;color:var(--muted);margin-top:6px;}
+
+/* DEALS */
+.deals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px;}
+.deal-card{background:var(--card);border:1px solid rgba(232,39,26,0.2);border-radius:16px;padding:18px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s;}
+.deal-card:hover{transform:translateY(-4px);border-color:rgba(232,39,26,0.55);}
+.deal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow));}
+.deal-no{display:inline-block;background:var(--red);color:#fff;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:50px;margin-bottom:9px;}
+.deal-title{font-weight:900;font-size:16px;color:var(--text);margin-bottom:7px;}
+.deal-items{font-size:12.5px;color:var(--muted);line-height:1.8;margin-bottom:12px;}
+.deal-price{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--yellow);letter-spacing:1px;}
+
+/* CAT */
+.cat-block{margin-bottom:40px;}
+.cat-hd{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--orange);letter-spacing:1px;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.cat-hd::after{content:'';flex:1;height:1px;background:rgba(232,39,26,0.2);}
+
+/* MENU GRID */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:11px;}
+.mitem{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px 16px;display:flex;align-items:center;gap:12px;transition:border-color .2s,transform .2s;}
+.mitem:hover{border-color:rgba(249,115,22,0.4);transform:translateY(-2px);}
+.mitem-ico{font-size:30px;flex-shrink:0;}
+.mitem-body{flex:1;min-width:0;}
+.mitem-name{font-weight:800;font-size:13.5px;color:var(--text);line-height:1.3;}
+.mitem-desc{font-size:11.5px;color:var(--muted);margin:2px 0 6px;line-height:1.4;}
+.mitem-price{font-family:'Bebas Neue',sans-serif;font-size:21px;color:var(--orange);}
+
+/* PIZZA */
+.pizza-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.pizza-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:16px;transition:border-color .2s,transform .2s;}
+.pizza-card:hover{border-color:rgba(249,115,22,0.4);transform:translateY(-2px);}
+.pizza-name{font-weight:800;font-size:14px;color:var(--text);margin-bottom:4px;}
+.size-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.sz{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:12px;text-align:center;min-width:60px;}
+.sz-label{color:var(--muted);font-size:10px;}
+.sz-price{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--yellow);}
+.extra-note{background:rgba(249,115,22,0.08);border:1px solid rgba(249,115,22,0.2);border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--orange);margin-top:12px;text-align:center;}
+
+/* SIMPLE ITEMS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+@media(max-width:520px){.two-col{grid-template-columns:1fr;}}
+.simple-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 15px;display:flex;justify-content:space-between;align-items:center;gap:8px;transition:border-color .2s;}
+.simple-item:hover{border-color:rgba(249,115,22,0.35);}
+.si-name{font-weight:700;font-size:13px;color:var(--text);}
+.si-price{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--orange);flex-shrink:0;}
+
+/* WINGS */
+.wings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:11px;}
+.wing-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;transition:border-color .2s,transform .2s;}
+.wing-card:hover{border-color:rgba(232,39,26,0.4);transform:translateY(-2px);}
+.wing-ico{font-size:28px;margin-bottom:6px;}
+.wing-name{font-weight:800;font-size:13px;color:var(--text);margin-bottom:4px;}
+.wing-price{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--orange);}
+
+/* OFFER BANNER */
+.offer-banner{background:linear-gradient(135deg,#E8271A,#BA4B0A);border-radius:16px;padding:22px 24px;text-align:center;margin-top:20px;}
+.offer-title{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;letter-spacing:1px;}
+.offer-sub{font-size:14px;color:rgba(255,255,255,0.85);margin-top:4px;}
+
+/* LOCATION */
+.loc-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;max-width:960px;margin:0 auto;}
+@media(max-width:580px){.loc-card{grid-template-columns:1fr;}}
+.loc-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;}
+.loc-name{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--yellow);margin-bottom:4px;}
+.loc-addr{font-size:13.5px;color:var(--muted);line-height:1.8;margin-bottom:14px;}
+.hours-box{background:rgba(255,255,255,0.03);border-radius:10px;padding:12px 14px;}
+.h-row{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.h-row:last-child{border:none;}
+.open{color:#4ade80;font-weight:700;}
+.phones{margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+.phone-pill{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);background:rgba(255,255,255,0.04);border-radius:10px;padding:9px 13px;}
+.loc-btns{display:flex;flex-direction:column;gap:11px;}
+.lbtn{display:flex;align-items:center;justify-content:center;gap:9px;padding:14px 18px;border-radius:12px;font-weight:800;font-size:13.5px;text-decoration:none;transition:transform .2s,opacity .2s;}
+.lbtn:hover{transform:scale(1.03);opacity:.9;}
+.lbtn-maps{background:linear-gradient(135deg,#4285F4,#34A853);color:#fff;}
+.lbtn-wa{background:var(--green);color:#fff;}
+.lbtn-call{background:rgba(232,39,26,0.18);border:1px solid rgba(232,39,26,0.35);color:var(--red);}
+.lbtn-call2{background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.3);color:var(--orange);}
+
+/* PAYMENT */
+.pay-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;max-width:960px;margin:0 auto;padding:0 16px;}
+.pay-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:18px;text-align:center;transition:border-color .2s,transform .2s;}
+.pay-card:hover{border-color:rgba(249,115,22,0.4);transform:translateY(-3px);}
+.pay-ico{font-size:32px;margin-bottom:8px;}
+.pay-name{font-weight:800;font-size:14px;color:var(--text);margin-bottom:3px;}
+.pay-detail{font-size:12px;color:var(--muted);line-height:1.6;}
+.pay-note-inner{background:rgba(250,204,21,0.07);border:1px solid rgba(250,204,21,0.2);border-radius:12px;padding:14px 18px;font-size:13px;color:var(--yellow);font-weight:600;line-height:1.65;text-align:center;max-width:960px;margin:18px auto 0;}
+
+/* STICKY WA */
+.sticky-wa{position:fixed;bottom:22px;right:16px;z-index:300;display:flex;align-items:center;gap:9px;background:var(--green);color:#fff;font-weight:800;font-size:14px;padding:13px 20px;border-radius:50px;text-decoration:none;box-shadow:0 8px 28px rgba(37,211,102,0.5);animation:pulse 2.2s infinite;}
+.sticky-wa svg{width:19px;height:19px;fill:#fff;}
+@media(max-width:400px){.sticky-wa span{display:none;}.sticky-wa{padding:13px 15px;}}
+
+/* FOOTER */
+footer{background:var(--darker);border-top:1px solid rgba(255,255,255,0.05);padding:28px 16px;text-align:center;}
+.ft-logo{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--yellow);letter-spacing:2px;}
+.ft-sub{font-size:11px;color:var(--muted);margin:5px 0 14px;letter-spacing:2px;text-transform:uppercase;}
+.ft-links{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;}
+.ft-links a{font-size:12.5px;color:var(--muted);text-decoration:none;}
+.ft-links a:hover{color:var(--orange);}
+.ft-copy{margin-top:16px;font-size:11px;color:rgba(196,160,112,0.35);}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(232,39,26,0.25),transparent);margin:0 auto;max-width:960px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{box-shadow:0 8px 28px rgba(37,211,102,0.5);}50%{box-shadow:0 8px 44px rgba(37,211,102,0.8);}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-box">
+    <div class="logo-ico">🍔</div>
+    <div>
+      <div class="logo-name">Hunger Point</div>
+      <div class="logo-sub">Est. 2022 · Shewa Adda</div>
+    </div>
+  </div>
+  <a href="https://wa.me/923239129306?text=Hi!%20I%20want%20to%20place%20an%20order%20from%20Hunger%20Point%20%F0%9F%94%A5" target="_blank" class="wa-hdr">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Order Now
+  </a>
+</header>
+
+<!-- NAV TABS -->
+<nav class="nav-scroll">
+  <div class="nav-inner">
+    <a class="ntab" href="#deals">🔥 Deals</a>
+    <a class="ntab" href="#burgers">🍔 Burgers</a>
+    <a class="ntab" href="#shawarma">🌯 Shawarma</a>
+    <a class="ntab" href="#pizza">🍕 Pizza</a>
+    <a class="ntab" href="#broast">🍗 Broast</a>
+    <a class="ntab" href="#wings">🔥 Wings</a>
+    <a class="ntab" href="#fries">🍟 Fries</a>
+    <a class="ntab" href="#fish">🐟 Fish</a>
+    <a class="ntab" href="#chinese">🥢 Chinese</a>
+    <a class="ntab" href="#biryani">🍛 Biryani</a>
+    <a class="ntab" href="#location">📍 Location</a>
+    <a class="ntab" href="#payment">💳 Payment</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="estd-badge">⭐ Est. 2022 · Taj Plaza, Shewa Adda</div>
+  <h1 class="hero-h1">HUNGER<br><span>POINT</span></h1>
+  <p class="hero-tagline">Delicious Fast Food — Order Fresh on WhatsApp, Pick Up or Home Delivery!</p>
+  <div class="hero-btns">
+    <a href="https://wa.me/923239129306?text=Hi!%20I%20want%20to%20place%20an%20order%20from%20Hunger%20Point%20%F0%9F%94%A5" target="_blank" class="btn-wa">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order on WhatsApp
+    </a>
+    <a href="#deals" class="btn-outline">🔥 View Deals</a>
+  </div>
+  <div class="hero-food">🍔 🍕 🌯 🍗 🍟 🥢</div>
+  <div class="info-strip">
+    <div class="info-pill">📍 Taj Plaza, Near HBL Bank</div>
+    <div class="info-pill">🚀 Min. Delivery Rs. 150</div>
+    <div class="info-pill">💸 10% off on Rs. 4000+</div>
+    <div class="info-pill">⚡ Fast &amp; Fresh</div>
+  </div>
+</section>
+
+<!-- ═══════════ HUNGER DEALS ═══════════ -->
+<section class="sec" id="deals">
+  <div class="sec-head">
+    <div class="sec-tag">🔥 Best Value Combos</div>
+    <div class="sec-title">Hunger Deals</div>
+    <div class="sec-note">13 amazing combos — pick your favourite!</div>
+  </div>
+  <div class="deals-grid">
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 1</div>
+      <div class="deal-title">Nuggets Combo</div>
+      <div class="deal-items">🍗 Nuggets Burger<br>🍟 Regular Fries<br>🥤 Regular Drink</div>
+      <div class="deal-price">Rs. 450</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 2</div>
+      <div class="deal-title">Zinger Meal</div>
+      <div class="deal-items">🍔 Zinger Burger<br>🍟 Regular Fries<br>🥤 Regular Drink</div>
+      <div class="deal-price">Rs. 550</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 3</div>
+      <div class="deal-title">Zinger + Chicken</div>
+      <div class="deal-items">🍔 Zinger Burger<br>🍗 1 Chicken Pcs<br>🥤 Regular Drink</div>
+      <div class="deal-price">Rs. 580</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 4</div>
+      <div class="deal-title">3 Pcs Broast Combo</div>
+      <div class="deal-items">🍗 3 Chicken Pcs<br>🥤 1 Liter Drink</div>
+      <div class="deal-price">Rs. 750</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 5</div>
+      <div class="deal-title">Double Zinger Cheese</div>
+      <div class="deal-items">🧀 2 Zinger Cheese<br>🍟 Regular Fries<br>🥤 1 Liter Drink</div>
+      <div class="deal-price">Rs. 1150</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 6</div>
+      <div class="deal-title">Zinger + Pizza</div>
+      <div class="deal-items">🍔 2 Zinger Burgers<br>🍕 1 Small Pizza<br>🥤 2 Regular Drinks</div>
+      <div class="deal-price">Rs. 1350</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 7</div>
+      <div class="deal-title">4 Zinger Party</div>
+      <div class="deal-items">🍔 4 Zinger Burgers<br>🍟 1 Regular Fries<br>🥤 1 Liter Drink</div>
+      <div class="deal-price">Rs. 1600</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 8</div>
+      <div class="deal-title">Wings Feast</div>
+      <div class="deal-items">🔥 10 pcs Hot Wings<br>🥤 2 Regular Drinks</div>
+      <div class="deal-price">Rs. 850</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 9</div>
+      <div class="deal-title">Fried Rice Combo</div>
+      <div class="deal-items">🍗 3 Chicken Pcs<br>🍚 1 Fried Rice<br>🍟 1 Regular Fries<br>🥤 1 Liter Drink</div>
+      <div class="deal-price">Rs. 1450</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 10</div>
+      <div class="deal-title">8 Pcs Broast</div>
+      <div class="deal-items">🍗 8 Fried Chicken<br>🍟 Regular Fries<br>🥤 1 Liter Drink</div>
+      <div class="deal-price">Rs. 2000</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 11</div>
+      <div class="deal-title">Cheese + Pizza</div>
+      <div class="deal-items">🧀 2 Zinger Cheese<br>🍕 1 Medium Pizza<br>🥤 1.5 Liter Drink</div>
+      <div class="deal-price">Rs. 2000</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 12</div>
+      <div class="deal-title">4 Cheese + Large Pizza</div>
+      <div class="deal-items">🧀 4 Zinger Cheese<br>🍕 Large Pizza<br>🥤 1.5 Liter Drink</div>
+      <div class="deal-price">Rs. 3200</div>
+    </div>
+
+    <div class="deal-card">
+      <div class="deal-no">Hunger Deal 13</div>
+      <div class="deal-title">🏆 Ultimate Family</div>
+      <div class="deal-items">🍕 Large Pizza<br>🍔 4 Zinger Burgers<br>🔥 10 Hot Wings<br>🍟 Family Fries<br>🥤 1.5 Liter Drink</div>
+      <div class="deal-price">Rs. 3750</div>
+    </div>
+
+  </div>
+  <div class="offer-banner">
+    <div class="offer-title">🎉 Make Your Own Deal!</div>
+    <div class="offer-sub"><strong>10% OFF</strong> on orders Rs. 4000 or more — (Home Delivery not included)</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ PIZZA DEALS ═══════════ -->
+<section class="sec" id="pizza">
+  <div class="sec-head">
+    <div class="sec-tag">🍕 Love at First Slice</div>
+    <div class="sec-title">Pizza</div>
+    <div class="sec-note">Sizes: S = 7" &nbsp;|&nbsp; R = 11" &nbsp;|&nbsp; L = 13" &nbsp;|&nbsp; XL = 16"</div>
+  </div>
+
+  <div class="cat-block">
+    <div class="cat-hd">🍕 Pizza Deals</div>
+    <div class="deals-grid">
+      <div class="deal-card">
+        <div class="deal-no">Pizza Deal 1</div>
+        <div class="deal-items">🍕 2 Small Pizza<br>🥤 2 Regular Drinks</div>
+        <div class="deal-price">Rs. 1300</div>
+      </div>
+      <div class="deal-card">
+        <div class="deal-no">Pizza Deal 2</div>
+        <div class="deal-items">🍕 2 Regular Pizza<br>🥤 1 Liter Drink</div>
+        <div class="deal-price">Rs. 2200</div>
+      </div>
+      <div class="deal-card">
+        <div class="deal-no">Pizza Deal 3</div>
+        <div class="deal-items">🍕 2 Large Pizza<br>🥤 1.5 Liter Drink</div>
+        <div class="deal-price">Rs. 2950</div>
+      </div>
+      <div class="deal-card">
+        <div class="deal-no">Pizza Deal 4</div>
+        <div class="deal-items">🍕 1 Small Pizza<br>🍕 1 Regular Pizza<br>🍕 1 Large Pizza<br>🥤 1.5 Liter Drink</div>
+        <div class="deal-price">Rs. 3100</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-block">
+    <div class="cat-hd">🍕 Hunger Classic</div>
+    <div class="pizza-grid">
+      <div class="pizza-card">
+        <div class="pizza-name">🍗 Chicken Tikka</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">S 7"</div><div class="sz-price">600</div></div>
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1100</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1500</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">1850</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">🌶️ Chicken Fajita</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">S 7"</div><div class="sz-price">600</div></div>
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1100</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1500</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">1850</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">🥩 Behari Kabab</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">S 7"</div><div class="sz-price">600</div></div>
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1100</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1500</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">1850</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">🌶️ Pepperoni Pizza</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">S 7"</div><div class="sz-price">600</div></div>
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1100</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1500</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">1850</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">🍗 Creamy Chicken</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">S 7"</div><div class="sz-price">600</div></div>
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1100</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1500</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">1850</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">💛 Cheese Lover</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">S 7"</div><div class="sz-price">600</div></div>
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1100</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1500</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">1850</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="extra-note">➕ Extra Topping — R: Rs. 200 &nbsp;·&nbsp; L: Rs. 300 &nbsp;·&nbsp; XL: Rs. 350</div>
+  </div>
+
+  <div class="cat-block">
+    <div class="cat-hd">⭐ Hunger Special</div>
+    <div class="pizza-grid">
+      <div class="pizza-card">
+        <div class="pizza-name">🏆 Hunger Crust</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1350</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1900</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">2200</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">👑 Hunger Crown</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1300</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1900</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">2200</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">🌟 Hunger Special</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1300</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1900</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">2200</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">🍕 Supreme Pizza</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1300</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1900</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">2200</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">🔥 BBQ Pizza</div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">R 11"</div><div class="sz-price">1300</div></div>
+          <div class="sz"><div class="sz-label">L 13"</div><div class="sz-price">1900</div></div>
+          <div class="sz"><div class="sz-label">XL 16"</div><div class="sz-price">2200</div></div>
+        </div>
+      </div>
+      <div class="pizza-card">
+        <div class="pizza-name">🐟🥩🧀🍗 Four Season Pizza <span style="font-size:11px;color:var(--muted);">(Fish, Kabab, Cheese, Tikka)</span></div>
+        <div class="size-pills">
+          <div class="sz"><div class="sz-label">All Sizes</div><div class="sz-price">2800</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ BURGERS ═══════════ -->
+<section class="sec" id="burgers">
+  <div class="sec-head">
+    <div class="sec-tag">🍔 Burgers</div>
+    <div class="sec-title">Burgers</div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🔥 Signature Burgers</div>
+    <div class="menu-grid">
+      <div class="mitem"><div class="mitem-ico">🍔</div><div class="mitem-body"><div class="mitem-name">Zinger Burger</div><div class="mitem-price">Rs. 350</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🥗</div><div class="mitem-body"><div class="mitem-name">Crispy Culeslow Burger</div><div class="mitem-price">Rs. 400</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🧀</div><div class="mitem-body"><div class="mitem-name">Zinger Cheese</div><div class="mitem-price">Rs. 450</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍗</div><div class="mitem-body"><div class="mitem-name">Grilled Chicken</div><div class="mitem-price">Rs. 500</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🏰</div><div class="mitem-body"><div class="mitem-name">Tower Zinger</div><div class="mitem-price">Rs. 550</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍕</div><div class="mitem-body"><div class="mitem-name">Burger Pizza</div><div class="mitem-price">Rs. 550</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🐟</div><div class="mitem-body"><div class="mitem-name">Fish Burger</div><div class="mitem-price">Rs. 500</div></div></div>
+      <div class="mitem"><div class="mitem-ico">💪</div><div class="mitem-body"><div class="mitem-name">Mighty Zinger</div><div class="mitem-price">Rs. 600</div></div></div>
+      <div class="mitem"><div class="mitem-ico">💥</div><div class="mitem-body"><div class="mitem-name">Grilled Big Bang</div><div class="mitem-price">Rs. 700</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🥩</div><div class="mitem-body"><div class="mitem-name">Prime Beef Burger</div><div class="mitem-price">Rs. 700</div></div></div>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🧒 Kids Burgers</div>
+    <div class="menu-grid">
+      <div class="mitem"><div class="mitem-ico">🍗</div><div class="mitem-body"><div class="mitem-name">Nuggets Burger</div><div class="mitem-price">Rs. 200</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍔</div><div class="mitem-body"><div class="mitem-name">Chicken Patty Burger</div><div class="mitem-price">Rs. 250</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ SHAWARMA & PARATHA ═══════════ -->
+<section class="sec" id="shawarma">
+  <div class="sec-head">
+    <div class="sec-tag">🌯 Hunger Innovations</div>
+    <div class="sec-title">Shawarma &amp; Rolls</div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🌯 Shawarma</div>
+    <div class="two-col">
+      <div class="simple-item"><span class="si-name">Chicken Shawarma</span><span class="si-price">Rs. 220</span></div>
+      <div class="simple-item"><span class="si-name">Chicken with Cheese Shawarma</span><span class="si-price">Rs. 250</span></div>
+      <div class="simple-item"><span class="si-name">Zinger Shawarma</span><span class="si-price">Rs. 300</span></div>
+      <div class="simple-item"><span class="si-name">Zinger with Cheese Shawarma</span><span class="si-price">Rs. 350</span></div>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🫓 Paratha Rolls</div>
+    <div class="two-col">
+      <div class="simple-item"><span class="si-name">Pizza Paratha</span><span class="si-price">Rs. 450</span></div>
+      <div class="simple-item"><span class="si-name">Chicken Paratha Roll</span><span class="si-price">Rs. 300</span></div>
+      <div class="simple-item"><span class="si-name">Chicken with Cheese Paratha</span><span class="si-price">Rs. 350</span></div>
+      <div class="simple-item"><span class="si-name">Zinger Paratha</span><span class="si-price">Rs. 350</span></div>
+      <div class="simple-item"><span class="si-name">Zinger with Cheese Paratha</span><span class="si-price">Rs. 400</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ BROAST ═══════════ -->
+<section class="sec" id="broast">
+  <div class="sec-head">
+    <div class="sec-tag">🍗 Crispy &amp; Juicy</div>
+    <div class="sec-title">Broast &amp; Fried Chicken</div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🍗 Broast</div>
+    <div class="menu-grid">
+      <div class="mitem"><div class="mitem-ico">🍗</div><div class="mitem-body"><div class="mitem-name">Full Broast</div><div class="mitem-price">Rs. 1800</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍗</div><div class="mitem-body"><div class="mitem-name">Half Broast</div><div class="mitem-price">Rs. 900</div></div></div>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🍗 Fried Chicken Pieces</div>
+    <div class="menu-grid">
+      <div class="mitem"><div class="mitem-ico">🦵</div><div class="mitem-body"><div class="mitem-name">Leg Pcs</div><div class="mitem-desc">Per piece</div><div class="mitem-price">Rs. 200</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍗</div><div class="mitem-body"><div class="mitem-name">Chest Pcs</div><div class="mitem-desc">Per piece</div><div class="mitem-price">Rs. 250</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍔</div><div class="mitem-body"><div class="mitem-name">Zinger Pcs</div><div class="mitem-desc">Per piece</div><div class="mitem-price">Rs. 250</div></div></div>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🍗 Chicken Nuggets &amp; Dips</div>
+    <div class="menu-grid">
+      <div class="mitem"><div class="mitem-ico">🍗</div><div class="mitem-body"><div class="mitem-name">Chicken Nuggets</div><div class="mitem-desc">10 pieces</div><div class="mitem-price">Rs. 500</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Mayo Dips</div><div class="mitem-price">Rs. 50</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Shawarma Dips</div><div class="mitem-price">Rs. 100</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ WINGS ═══════════ -->
+<section class="sec" id="wings">
+  <div class="sec-head">
+    <div class="sec-tag">🔥 Saucy &amp; Crispy</div>
+    <div class="sec-title">Wings</div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🔥 Special Wings — 10 pcs</div>
+    <div class="wings-grid">
+      <div class="wing-card"><div class="wing-ico">🔥</div><div class="wing-name">BBQ Wings</div><div class="wing-price">Rs. 700</div></div>
+      <div class="wing-card"><div class="wing-ico">🌶️</div><div class="wing-name">Crispy Wings</div><div class="wing-price">Rs. 700</div></div>
+      <div class="wing-card"><div class="wing-ico">🥣</div><div class="wing-name">Mayo Wings</div><div class="wing-price">Rs. 700</div></div>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🍗 Grilled Wings</div>
+    <div class="wings-grid">
+      <div class="wing-card"><div class="wing-ico">🍗</div><div class="wing-name">Small — 6 pcs</div><div class="wing-price">Rs. 500</div></div>
+      <div class="wing-card"><div class="wing-ico">🍗</div><div class="wing-name">Medium — 10 pcs</div><div class="wing-price">Rs. 700</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ FRIES ═══════════ -->
+<section class="sec" id="fries">
+  <div class="sec-head">
+    <div class="sec-tag">🍟 Golden &amp; Crispy</div>
+    <div class="sec-title">Fries</div>
+  </div>
+  <div class="menu-grid">
+    <div class="mitem"><div class="mitem-ico">🍟</div><div class="mitem-body"><div class="mitem-name">Plain Fries — Regular</div><div class="mitem-price">Rs. 200</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🍟</div><div class="mitem-body"><div class="mitem-name">Plain Fries — Large</div><div class="mitem-price">Rs. 300</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🍟</div><div class="mitem-body"><div class="mitem-name">Plain Fries — Family</div><div class="mitem-price">Rs. 400</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Mayo Fries — Small</div><div class="mitem-price">Rs. 250</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Mayo Fries — Large</div><div class="mitem-price">Rs. 350</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Mayo Fries — Family</div><div class="mitem-price">Rs. 500</div></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ FISH ═══════════ -->
+<section class="sec" id="fish">
+  <div class="sec-head">
+    <div class="sec-tag">🐟 Seafood</div>
+    <div class="sec-title">Finger Fish &amp; Chips</div>
+  </div>
+  <div class="menu-grid">
+    <div class="mitem"><div class="mitem-ico">🐟</div><div class="mitem-body"><div class="mitem-name">Finger Fish &amp; Chips</div><div class="mitem-price">Rs. 650</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🐟</div><div class="mitem-body"><div class="mitem-name">Full Finger Fish</div><div class="mitem-price">Rs. 2400</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🐟</div><div class="mitem-body"><div class="mitem-name">Half Finger Fish</div><div class="mitem-price">Rs. 1200</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🍟</div><div class="mitem-body"><div class="mitem-name">Pizza Fries</div><div class="mitem-price">Rs. 500</div></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ CHINESE ═══════════ -->
+<section class="sec" id="chinese">
+  <div class="sec-head">
+    <div class="sec-tag">🥢 Asian Flavors</div>
+    <div class="sec-title">Chinese, Pasta &amp; Soup</div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🥢 Chinese</div>
+    <div class="menu-grid">
+      <div class="mitem"><div class="mitem-ico">🍜</div><div class="mitem-body"><div class="mitem-name">Chicken Choman</div><div class="mitem-price">Rs. 550</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍲</div><div class="mitem-body"><div class="mitem-name">Chicken Chilli Dry Rice</div><div class="mitem-price">Rs. 550</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍛</div><div class="mitem-body"><div class="mitem-name">Chicken Shashilk Rice</div><div class="mitem-price">Rs. 550</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍚</div><div class="mitem-body"><div class="mitem-name">Special Fried Rice</div><div class="mitem-price">Rs. 500</div></div></div>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🍝 Pasta</div>
+    <div class="menu-grid">
+      <div class="mitem"><div class="mitem-ico">🍕</div><div class="mitem-body"><div class="mitem-name">Pizza Style Pasta</div><div class="mitem-price">Rs. 400</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🍝</div><div class="mitem-body"><div class="mitem-name">Alfredo Pasta</div><div class="mitem-price">Rs. 600</div></div></div>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-hd">🥣 Soup</div>
+    <div class="menu-grid">
+      <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Chicken Corn Soup</div><div class="mitem-desc">1 Person</div><div class="mitem-price">Rs. 200</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Chicken Corn Soup</div><div class="mitem-desc">4 Person</div><div class="mitem-price">Rs. 500</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Hot &amp; Sour Soup</div><div class="mitem-desc">4 Person</div><div class="mitem-price">Rs. 450</div></div></div>
+      <div class="mitem"><div class="mitem-ico">🥣</div><div class="mitem-body"><div class="mitem-name">Chicken Special Soup</div><div class="mitem-desc">4 Person</div><div class="mitem-price">Rs. 650</div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ BIRYANI ═══════════ -->
+<section class="sec" id="biryani">
+  <div class="sec-head">
+    <div class="sec-tag">🍛 Desi Flavors</div>
+    <div class="sec-title">Biryani</div>
+  </div>
+  <div class="menu-grid">
+    <div class="mitem"><div class="mitem-ico">🍛</div><div class="mitem-body"><div class="mitem-name">Single Biryani</div><div class="mitem-price">Rs. 300</div></div></div>
+    <div class="mitem"><div class="mitem-ico">🍛</div><div class="mitem-body"><div class="mitem-name">Double Biryani</div><div class="mitem-price">Rs. 500</div></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ LOCATION ═══════════ -->
+<section class="sec" id="location" style="padding-bottom:20px;">
+  <div class="sec-head">
+    <div class="sec-tag">📍 Visit Us</div>
+    <div class="sec-title">Our Location</div>
+  </div>
+  <div class="loc-card">
+    <div>
+      <div class="loc-label">Restaurant Address</div>
+      <div class="loc-name">Hunger Point</div>
+      <div class="loc-addr">Taj Plaza, Shewa Adda<br>Near HBL Bank<br>687F+5R7, Turlandi, Pakistan</div>
+      <div class="hours-box">
+        <div class="h-row"><span>Open Daily</span><span class="open">Fast &amp; Fresh Delivery</span></div>
+        <div class="h-row"><span>Min. Home Delivery</span><span style="color:var(--yellow);font-weight:700;">Rs. 1000</span></div>
+        <div class="h-row"><span>Make Your Own Deal</span><span style="color:var(--yellow);font-weight:700;">10% Off Rs.4000+</span></div>
+      </div>
+      <div class="phones">
+        <div class="phone-pill">📞 0938-310299</div>
+        <div class="phone-pill">📱 0308-5888899</div>
+        <div class="phone-pill">💬 0323-9129306 (WhatsApp Order)</div>
+        <div class="phone-pill">⚠️ Complaints: 0312-8340383</div>
+      </div>
+    </div>
+    <div class="loc-btns">
+      <a href="https://www.google.com/maps/dir//Hunger+point+shewa+adda,+687F%2B5R7,+Turlandi,+Pakistan/@33.6789504,73.039872,9z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x38dec100534ae9a5:0xe629efa19acb1b01!2m2!1d72.3245581!2d34.2129106" target="_blank" class="lbtn lbtn-maps">📍 Open in Google Maps</a>
+      <a href="https://wa.me/923239129306?text=Hi!%20Can%20you%20please%20share%20your%20location%20pin%3F%20%F0%9F%97%BA%EF%B8%8F" target="_blank" class="lbtn lbtn-wa">💬 Get Location via WhatsApp</a>
+      <a href="tel:+920938310299" class="lbtn lbtn-call">📞 Call: 0938-310299</a>
+      <a href="tel:+923085888899" class="lbtn lbtn-call2">📱 Call: 0308-5888899</a>
+      <a href="https://wa.me/923239129306?text=Hi!%20I%20want%20to%20place%20an%20order%20%F0%9F%94%A5" target="_blank" class="lbtn lbtn-wa">🛒 Order Now on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="margin-top:40px;"></div>
+
+<!-- ═══════════ PAYMENT ═══════════ -->
+<section class="sec" id="payment" style="padding-bottom:20px;">
+  <div class="sec-head">
+    <div class="sec-tag">💳 Easy &amp; Secure</div>
+    <div class="sec-title">How to Pay</div>
+  </div>
+</section>
+<div class="pay-grid">
+  <div class="pay-card"><div class="pay-ico">💵</div><div class="pay-name">Cash</div><div class="pay-detail">Pay at counter<br>or on delivery</div></div>
+  <div class="pay-card"><div class="pay-ico">📱</div><div class="pay-name">EasyPaisa</div><div class="pay-detail">0323-9129306<br>Send &amp; confirm</div></div>
+  <div class="pay-card"><div class="pay-ico">💜</div><div class="pay-name">JazzCash</div><div class="pay-detail">0323-9129306<br>Send &amp; confirm</div></div>
+  <div class="pay-card"><div class="pay-ico">🏦</div><div class="pay-name">Bank Transfer</div><div class="pay-detail">Ask on WhatsApp<br>for account details</div></div>
+</div>
+<div style="padding:0 16px;">
+  <div class="pay-note-inner">
+    💡 Mention your payment method when ordering on WhatsApp.<br>
+    For online payments, share your transaction screenshot to confirm instantly.<br><br>
+    🚚 Minimum Home Delivery: <strong>Rs. 1000</strong> &nbsp;·&nbsp; 🎉 10% OFF on Rs. 4000+ (Dine-in &amp; Takeaway only)
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="margin-top:60px;">
+  <div class="ft-logo">HUNGER POINT</div>
+  <div class="ft-sub">Taj Plaza · Shewa Adda · Near HBL Bank · Est. 2022 · Delicious</div>
+  <div class="ft-links">
+    <a href="https://wa.me/923239129306?text=Hi!%20I%20want%20to%20order%20%F0%9F%94%A5" target="_blank">📱 WhatsApp Order</a>
+    <a href="tel:+920938310299">📞 0938-310299</a>
+    <a href="#deals">🔥 Deals</a>
+    <a href="#burgers">🍔 Burgers</a>
+    <a href="#pizza">🍕 Pizza</a>
+    <a href="#shawarma">🌯 Shawarma</a>
+    <a href="#broast">🍗 Broast</a>
+    <a href="#chinese">🥢 Chinese</a>
+    <a href="#location">📍 Location</a>
+  </div>
+  <div class="ft-copy">© 2025 Hunger Point. All rights reserved. · Complaints: 0312-8340383</div>
+</footer>
+
+<!-- STICKY WA BUTTON -->
+<a href="https://wa.me/923239129306?text=Hi!%20I%20want%20to%20place%20an%20order%20from%20Hunger%20Point%20%F0%9F%94%A5" target="_blank" class="sticky-wa">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span>Order on WhatsApp</span>
+</a>
+
+<script>
+const tabs = document.querySelectorAll('.ntab');
+const secs = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
+  tabs.forEach(t => { t.classList.toggle('active', t.getAttribute('href') === '#' + cur); });
+});
+</script>
+</body>
+</html>
